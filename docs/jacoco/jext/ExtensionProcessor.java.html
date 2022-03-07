@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExtensionProcessor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jExt</a> &gt; <a href="index.source.html" class="el_package">jext</a> &gt; <span class="el_source">ExtensionProcessor.java</span></div><h1>ExtensionProcessor.java</h1><pre class="source lang-java linenums">/**
- * @author Luis Iñesta Gelabert - linesta@iti.es | luiinge@gmail.com
- */
-package jext;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExtensionProcessor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jExt</a> &gt; <a href="index.source.html" class="el_package">kext</a> &gt; <span class="el_source">ExtensionProcessor.java</span></div><h1>ExtensionProcessor.java</h1><pre class="source lang-java linenums">
+package kext;
 
 
 import java.io.BufferedReader;
@@ -33,7 +31,7 @@ import javax.tools.StandardLocation;
 /**
  * An extension processor that validate and publish the provided extensions
  */
-@SupportedAnnotationTypes(&quot;jext.Extension&quot;)
+@SupportedAnnotationTypes(&quot;kext.Extension&quot;)
 @SupportedSourceVersion(SourceVersion.RELEASE_11)
 <span class="fc" id="L38">public class ExtensionProcessor extends AbstractProcessor {</span>
 
@@ -293,7 +291,7 @@ import javax.tools.StandardLocation;
 <span class="fc" id="L293">        allExtensions.addAll(entry.getValue());</span>
 <span class="fc" id="L294">        resourceFile = filer.createResource(StandardLocation.CLASS_OUTPUT, &quot;&quot;, resourcePath);</span>
 <span class="fc" id="L295">        writeLines(allExtensions, resourceFile);</span>
-<span class="fc" id="L296">        log(Kind.NOTE, &quot;[jext] :: Generated service declaration file {}&quot;, resourceFile.getName());</span>
+<span class="fc" id="L296">        log(Kind.NOTE, &quot;[kext] :: Generated service declaration file {}&quot;, resourceFile.getName());</span>
 <span class="fc" id="L297">    }</span>
 
 
@@ -334,7 +332,7 @@ import javax.tools.StandardLocation;
 <span class="fc" id="L334">        processingEnv.getMessager()</span>
 <span class="fc" id="L335">            .printMessage(</span>
                 kind,
-<span class="fc" id="L337">                &quot;[jext] :: &quot; + String.format(message.replace(&quot;{}&quot;, &quot;%s&quot;), messageArgs)</span>
+<span class="fc" id="L337">                &quot;[kext] :: &quot; + String.format(message.replace(&quot;{}&quot;, &quot;%s&quot;), messageArgs)</span>
             );
 <span class="fc" id="L339">    }</span>
 
@@ -343,7 +341,7 @@ import javax.tools.StandardLocation;
 <span class="nc" id="L343">        processingEnv.getMessager()</span>
 <span class="nc" id="L344">            .printMessage(</span>
                 kind,
-<span class="nc" id="L346">                &quot;[jext] at &quot; + element.asType().toString() + &quot; :: &quot; + String</span>
+<span class="nc" id="L346">                &quot;[kext] at &quot; + element.asType().toString() + &quot; :: &quot; + String</span>
 <span class="nc" id="L347">                    .format(message.replace(&quot;{}&quot;, &quot;%s&quot;), messageArgs)</span>
             );
 <span class="nc" id="L349">    }</span>

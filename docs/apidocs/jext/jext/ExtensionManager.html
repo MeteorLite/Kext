@@ -115,8 +115,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="moduleLabelInType">Module</span>&nbsp;<a href="../module-summary.html">jext</a></div>
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">jext</a></div>
+<div class="subTitle"><span class="moduleLabelInType">Module</span>&nbsp;<a href="../module-summary.html">kext</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">kext</a></div>
 <h2 title="Class ExtensionManager" class="title">Class ExtensionManager</h2>
 </div>
 <div class="contentContainer">
@@ -135,7 +135,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">ExtensionManager</span>
 extends Object</pre>
 <div class="block">Object that provides operations in order to retrieve instances of
-  classes annotated with <a href="Extension.html" title="annotation in jext"><code>Extension</code></a>.
+  classes annotated with <a href="Extension.html" title="annotation in kext"><code>Extension</code></a>.
   <p>
   The intended purpose of this class is to be used as a singleton,
   but there is no actual constraint about that. Clients can create
@@ -219,14 +219,14 @@ extends Object</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>&lt;T&gt;&nbsp;Stream&lt;<a href="Extension.html" title="annotation in jext">Extension</a>&gt;</code></td>
+<td class="colFirst"><code>&lt;T&gt;&nbsp;Stream&lt;<a href="Extension.html" title="annotation in kext">Extension</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getExtensionMetadata(java.lang.Class)">getExtensionMetadata</a></span>&#8203;(Class&lt;T&gt;&nbsp;extensionPoint)</code></th>
 <td class="colLast">
 <div class="block">Get all the extension annotated metadata for a given extension point</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>&lt;T&gt;&nbsp;<a href="Extension.html" title="annotation in jext">Extension</a></code></td>
+<td class="colFirst"><code>&lt;T&gt;&nbsp;<a href="Extension.html" title="annotation in kext">Extension</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getExtensionMetadata(T)">getExtensionMetadata</a></span>&#8203;(T&nbsp;extension)</code></th>
 <td class="colLast">
 <div class="block">Get the extension annotated metadata for a given extension</div>
@@ -252,7 +252,7 @@ extends Object</pre>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;Stream&lt;T&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getExtensionsThatSatisfyMetadata(java.lang.Class,java.util.function.Predicate)">getExtensionsThatSatisfyMetadata</a></span>&#8203;(Class&lt;T&gt;&nbsp;extensionPoint,
-                                Predicate&lt;<a href="Extension.html" title="annotation in jext">Extension</a>&gt;&nbsp;condition)</code></th>
+                                Predicate&lt;<a href="Extension.html" title="annotation in kext">Extension</a>&gt;&nbsp;condition)</code></th>
 <td class="colLast">
 <div class="block">Retrieves a priority-ordered list with all then extensions for the given
  extension point that satisfies the specified condition.</div>
@@ -281,14 +281,14 @@ extends Object</pre>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;Optional&lt;T&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getExtensionThatSatisfyMetadata(java.lang.Class,java.util.function.Predicate)">getExtensionThatSatisfyMetadata</a></span>&#8203;(Class&lt;T&gt;&nbsp;extensionPoint,
-                               Predicate&lt;<a href="Extension.html" title="annotation in jext">Extension</a>&gt;&nbsp;condition)</code></th>
+                               Predicate&lt;<a href="Extension.html" title="annotation in kext">Extension</a>&gt;&nbsp;condition)</code></th>
 <td class="colLast">
 <div class="block">Retrieves the instance for the given extension point that satisfies the
  specified condition, if any exists.</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
-<td class="colFirst"><code><a href="ExtensionManager.html" title="class in jext">ExtensionManager</a></code></td>
+<td class="colFirst"><code><a href="ExtensionManager.html" title="class in kext">ExtensionManager</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#newSession()">newSession</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Creates a new session of the extension manager.</div>
@@ -377,7 +377,7 @@ extends Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getExtensionMetadata</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;<a href="Extension.html" title="annotation in jext">Extension</a>&nbsp;getExtensionMetadata&#8203;(T&nbsp;extension)</pre>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;<a href="Extension.html" title="annotation in kext">Extension</a>&nbsp;getExtensionMetadata&#8203;(T&nbsp;extension)</pre>
 <div class="block">Get the extension annotated metadata for a given extension</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -394,7 +394,7 @@ extends Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getExtensionMetadata</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;Stream&lt;<a href="Extension.html" title="annotation in jext">Extension</a>&gt;&nbsp;getExtensionMetadata&#8203;(Class&lt;T&gt;&nbsp;extensionPoint)</pre>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;Stream&lt;<a href="Extension.html" title="annotation in kext">Extension</a>&gt;&nbsp;getExtensionMetadata&#8203;(Class&lt;T&gt;&nbsp;extensionPoint)</pre>
 <div class="block">Get all the extension annotated metadata for a given extension point</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -451,7 +451,7 @@ extends Object</pre>
 <li class="blockList">
 <h4>getExtensionThatSatisfyMetadata</h4>
 <pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;Optional&lt;T&gt;&nbsp;getExtensionThatSatisfyMetadata&#8203;(Class&lt;T&gt;&nbsp;extensionPoint,
-                                                       Predicate&lt;<a href="Extension.html" title="annotation in jext">Extension</a>&gt;&nbsp;condition)</pre>
+                                                       Predicate&lt;<a href="Extension.html" title="annotation in kext">Extension</a>&gt;&nbsp;condition)</pre>
 <div class="block">Retrieves the instance for the given extension point that satisfies the
  specified condition, if any exists. In the case of existing multiple
  alternatives, the one with highest priority will be used.</div>
@@ -535,7 +535,7 @@ extends Object</pre>
 <li class="blockList">
 <h4>getExtensionsThatSatisfyMetadata</h4>
 <pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;Stream&lt;T&gt;&nbsp;getExtensionsThatSatisfyMetadata&#8203;(Class&lt;T&gt;&nbsp;extensionPoint,
-                                                      Predicate&lt;<a href="Extension.html" title="annotation in jext">Extension</a>&gt;&nbsp;condition)</pre>
+                                                      Predicate&lt;<a href="Extension.html" title="annotation in kext">Extension</a>&gt;&nbsp;condition)</pre>
 <div class="block">Retrieves a priority-ordered list with all then extensions for the given
  extension point that satisfies the specified condition.</div>
 <dl>
@@ -554,7 +554,7 @@ extends Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>newSession</h4>
-<pre class="methodSignature">public&nbsp;<a href="ExtensionManager.html" title="class in jext">ExtensionManager</a>&nbsp;newSession()</pre>
+<pre class="methodSignature">public&nbsp;<a href="ExtensionManager.html" title="class in kext">ExtensionManager</a>&nbsp;newSession()</pre>
 <div class="block">Creates a new session of the extension manager. Each session
  will handle extensions marked with the <a href="ExtensionScope.html#SESSION"><code>ExtensionScope.SESSION</code></a>
  scope in isolation, returning a singleton instance per session.

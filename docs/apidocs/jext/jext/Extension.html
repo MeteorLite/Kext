@@ -107,8 +107,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="moduleLabelInType">Module</span>&nbsp;<a href="../module-summary.html">jext</a></div>
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">jext</a></div>
+<div class="subTitle"><span class="moduleLabelInType">Module</span>&nbsp;<a href="../module-summary.html">kext</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">kext</a></div>
 <h2 title="Annotation Type Extension" class="title">Annotation Type Extension</h2>
 </div>
 <div class="contentContainer">
@@ -120,10 +120,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 @Target(TYPE)
 public @interface <span class="memberNameLabel">Extension</span></pre>
 <div class="block">This annotation allows to mark a class as an extension managed by the
- <a href="ExtensionManager.html" title="class in jext"><code>ExtensionManager</code></a>.
+ <a href="ExtensionManager.html" title="class in kext"><code>ExtensionManager</code></a>.
  <p>
- Notice that any class not annotated with <a href="Extension.html" title="annotation in jext"><code>Extension</code></a> will not be
- managed in spite of implementing or extending the <a href="ExtensionPoint.html" title="annotation in jext"><code>ExtensionPoint</code></a>
+ Notice that any class not annotated with <a href="Extension.html" title="annotation in kext"><code>Extension</code></a> will not be
+ managed in spite of implementing or extending the <a href="ExtensionPoint.html" title="annotation in kext"><code>ExtensionPoint</code></a>
  class.</div>
 </li>
 </ul>
@@ -256,7 +256,7 @@ public @interface <span class="memberNameLabel">Extension</span></pre>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code><a href="ExtensionScope.html" title="enum in jext">ExtensionScope</a></code></td>
+<td class="colFirst"><code><a href="ExtensionScope.html" title="enum in kext">ExtensionScope</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#scope()">scope</a></span></code></th>
 <td class="colLast">
 <div class="block">Scope where this extension should be instantiated</div>
@@ -405,7 +405,7 @@ public @interface <span class="memberNameLabel">Extension</span></pre>
 <h4>externallyManaged</h4>
 <pre>boolean&nbsp;externallyManaged</pre>
 <div class="block">Extensions marked as externally managed will not resolved using the
- <code>ServiceLoader</code> mechanism. Instead, custom <a href="ExtensionLoader.html" title="interface in jext"><code>ExtensionLoader</code></a>
+ <code>ServiceLoader</code> mechanism. Instead, custom <a href="ExtensionLoader.html" title="interface in kext"><code>ExtensionLoader</code></a>
  will be used to retrieve the instance of the extension.</div>
 <dl>
 <dt>Default:</dt>
@@ -424,11 +424,11 @@ public @interface <span class="memberNameLabel">Extension</span></pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>scope</h4>
-<pre><a href="ExtensionScope.html" title="enum in jext">ExtensionScope</a>&nbsp;scope</pre>
+<pre><a href="ExtensionScope.html" title="enum in kext">ExtensionScope</a>&nbsp;scope</pre>
 <div class="block">Scope where this extension should be instantiated</div>
 <dl>
 <dt>Default:</dt>
-<dd>jext.ExtensionScope.GLOBAL</dd>
+<dd>kext.ExtensionScope.GLOBAL</dd>
 </dl>
 </li>
 </ul>
