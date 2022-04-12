@@ -12,21 +12,21 @@ import java.util.stream.Stream
 
 class InternalExtensionLoader : ExtensionLoader {
     override fun <T> load(
-        type: Class<T?>?,
-        classLoaders: MutableList<ClassLoader?>?,
+        type: Class<T>,
+        classLoaders: MutableList<ClassLoader>?,
         sessionID: String?
-    ): MutableList<T?>? {
+    ): MutableList<T> {
         return classLoaders?.stream()
-            ?.flatMap { classLoader: ClassLoader? -> load<T?>(type, classLoader) }
+            ?.flatMap { classLoader: ClassLoader? -> load(type, classLoader) }
             ?.filter { prototype: T? -> filterPrototypesWithoutMetadata(prototype) }
             ?.filter { prototype: T? -> filterExternallyManaged(prototype!!) }
             ?.map { prototype: T? -> instantiate<T?>(prototype, sessionID) }
             ?.filter { obj: Optional<T?>? -> obj!!.isPresent }
             ?.map { obj: Optional<T?>? -> obj!!.get() }
-            ?.collect(Collectors.toList())
+            ?.collect(Collectors.toList())!!
     }
 
-    override fun invalidateSession(sessionID: String?) {
+    override fun invalidateSession(sessionID: String) {
         instancesPerSession.remove(sessionID)
     }
 
@@ -95,7 +95,7 @@ class InternalExtensionLoader : ExtensionLoader {
         }
     }
 
-    private fun <T> load(type: Class<T?>?, classLoader: ClassLoader?): Stream<T?>? {
+    private fun <T> load(type: Class<T>, classLoader: ClassLoader?): Stream<T> {
         return try {
             // dynamically declaration of 'use' directive, otherwise it will cause an error
             InternalExtensionLoader::class.java.module.addUses(type)

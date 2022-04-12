@@ -1,5 +1,8 @@
-/.idea
-/target
-.project
-/.settings
-.classpath
+.gradle/
+.idea/
+client/build
+agent/build
+build/
+client/.mixin.out
+.mixin.out
+injected-client/src/main/java

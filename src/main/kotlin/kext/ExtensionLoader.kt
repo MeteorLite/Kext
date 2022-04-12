@@ -20,7 +20,7 @@ interface ExtensionLoader {
      * @param sessionID The string identifier of the extension manager session
      * @return An list with the retrieved instances. It cannot be null but can be empty.
     </T> */
-    fun <T> load(type: Class<T?>?, classLoaders: MutableList<ClassLoader?>?, sessionID: String?): MutableList<T?>?
+    fun <T> load(type: Class<T>, classLoaders: MutableList<ClassLoader>?, sessionID: String?): MutableList<T>
 
     /**
      * Invalidate the given session, removing possible stored data from cache.
@@ -30,5 +30,5 @@ interface ExtensionLoader {
      * is used.
      * @param sessionID The string identifier of the extension manager session
      */
-    fun invalidateSession(sessionID: String?)
+    fun invalidateSession(sessionID: String)
 }

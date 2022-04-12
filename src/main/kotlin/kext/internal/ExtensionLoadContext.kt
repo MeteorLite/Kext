@@ -8,20 +8,20 @@ import java.util.function.Predicate
 
 class ExtensionLoadContext<T> private constructor(
     private val sessionID: String?,
-    private val extensionPoint: Class<T?>?,
+    private val extensionPoint: Class<T>,
     private val extensionPointData: ExtensionPoint?,
-    private val condition: Predicate<T?>?
+    private val condition: Predicate<T>
 ) {
-    private var classLoaders: MutableList<ClassLoader?>? = null
+    private var classLoaders: MutableList<ClassLoader>? = null
     private var extensionLoader: ExtensionLoader? = null
     private var externallyManaged = false
     fun withInternalLoader(
-        classLoaders: MutableList<ClassLoader?>?,
+        classLoaders: MutableList<ClassLoader>,
         extensionLoader: ExtensionLoader?
     ): ExtensionLoadContext<T> {
-        val context = ExtensionLoadContext<T>(
+        val context = ExtensionLoadContext(
             sessionID,
-            extensionPoint!!,
+            extensionPoint,
             extensionPointData,
             condition
         )
@@ -32,10 +32,10 @@ class ExtensionLoadContext<T> private constructor(
     }
 
     fun withExternalLoader(
-        classLoaders: MutableList<ClassLoader?>,
+        classLoaders: MutableList<ClassLoader>,
         extensionLoader: ExtensionLoader?
     ): ExtensionLoadContext<T> {
-        val context = ExtensionLoadContext<T>(
+        val context = ExtensionLoadContext(
             sessionID,
             extensionPoint,
             extensionPointData,
@@ -47,11 +47,11 @@ class ExtensionLoadContext<T> private constructor(
         return context
     }
 
-    fun load(): MutableList<T?>? {
+    fun load(): MutableList<T>? {
         return extensionLoader?.load(extensionPoint, classLoaders, sessionID)
     }
 
-    fun condition(): Predicate<T?>? {
+    fun condition(): Predicate<T> {
         return condition
     }
 
@@ -59,7 +59,7 @@ class ExtensionLoadContext<T> private constructor(
         return extensionPointData
     }
 
-    fun extensionPoint(): Class<T?>? {
+    fun extensionPoint(): Class<T> {
         return extensionPoint
     }
 
@@ -82,20 +82,20 @@ class ExtensionLoadContext<T> private constructor(
     }
 
     companion object {
-        fun <T> all(sessionID: String?, extensionPoint: Class<T?>?): ExtensionLoadContext<T> {
+        fun <T> all(sessionID: String, extensionPoint: Class<T>): ExtensionLoadContext<T> {
             return ExtensionLoadContext(
                 sessionID,
                 extensionPoint,
                 dataOf(extensionPoint),
-                selectAll<T?>()
+                selectAll<T>()
             )
         }
 
         fun <T> satisfying(
             sessionID: String?,
-            extensionPoint: Class<T?>?,
-            condition: Predicate<T?>?
-        ): ExtensionLoadContext<T?> {
+            extensionPoint: Class<T>,
+            condition: Predicate<T>
+        ): ExtensionLoadContext<T> {
             return ExtensionLoadContext(
                 sessionID,
                 extensionPoint,
@@ -106,32 +106,32 @@ class ExtensionLoadContext<T> private constructor(
 
         fun <T> satisfyingData(
             sessionID: String?,
-            extensionPoint: Class<T?>?,
-            condition: Predicate<Extension?>?
-        ): ExtensionLoadContext<T?> {
+            extensionPoint: Class<T>,
+            condition: Predicate<Extension>
+        ): ExtensionLoadContext<T> {
             return ExtensionLoadContext(
                 sessionID,
                 extensionPoint,
                 dataOf(extensionPoint),
-                conditionFromAnnotation<T?>(condition)
+                conditionFromAnnotation<T>(condition)
             )
         }
 
-        private fun <T> selectAll(): Predicate<T?> {
+        private fun <T> selectAll(): Predicate<T> {
             return Predicate { true }
         }
 
-        private fun <T> conditionFromAnnotation(condition: Predicate<Extension?>?): Predicate<T?> {
-            return Predicate { extension: T? ->
+        private fun <T> conditionFromAnnotation(condition: Predicate<Extension>): Predicate<T> {
+            return Predicate { extension: T ->
                 condition!!.test(
-                    extension!!::class.java.javaClass.getAnnotation<Extension?>(
+                    extension!!::class.java.javaClass.getAnnotation(
                         Extension::class.java
                     )
                 )
             }
         }
 
-        private fun <T> dataOf(extensionPoint: Class<T>?): ExtensionPoint {
+        private fun <T> dataOf(extensionPoint: Class<T>): ExtensionPoint {
             return extensionPoint!!.getAnnotation(ExtensionPoint::class.java)
                 ?: throw IllegalArgumentException("$extensionPoint must be annotated with @ExtensionPoint")
         }

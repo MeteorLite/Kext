@@ -25,7 +25,7 @@ import java.util.stream.Stream
  */
 class ExtensionManager {
     private val sessionID = UUID.randomUUID().toString()
-    private val classLoaders: MutableList<ClassLoader?>
+    private val classLoaders: MutableList<ClassLoader>
     private val extensionLoaders = extensionLoaders()
     private val invalidExtensions: MutableMap<Class<*>?, MutableSet<Class<*>>> = HashMap()
     private val validExtensions: MutableMap<Class<*>?, MutableSet<Class<*>>> = HashMap()
@@ -43,7 +43,7 @@ class ExtensionManager {
      *
      * @param loaders The class loaders used for loading extension classes
      */
-    constructor(vararg loaders: ClassLoader?) {
+    constructor(vararg loaders: ClassLoader) {
         classLoaders = mutableListOf(*loaders)
     }
 
@@ -53,7 +53,7 @@ class ExtensionManager {
      *
      * @param loaders The class loaders used for loading extension classes
      */
-    constructor(loaders: Collection<ClassLoader?>?) {
+    constructor(loaders: Collection<ClassLoader>) {
         classLoaders = ArrayList(loaders)
     }
 
@@ -81,7 +81,7 @@ class ExtensionManager {
      * @return The extension metadata, or `null` if passed object is
      * not an extension
      */
-    fun <T> getExtensionMetadata(extensionPoint: Class<T?>?): Stream<Extension>? {
+    inline fun <reified T> getExtensionMetadata(extensionPoint: Class<T>): Stream<Extension>? {
         return getExtensions(extensionPoint)?.map { extension: T? -> this.getExtensionMetadata(extension) }
     }
 
@@ -93,7 +93,7 @@ class ExtensionManager {
      * @param extensionPoint The extension point type
      * @return An optional object either empty or wrapping the instance
      */
-    fun <T> getExtension(extensionPoint: Class<T?>?): Optional<T?> {
+    fun <T> getExtension(extensionPoint: Class<T>): Optional<T> {
         return loadFirst(ExtensionLoadContext.all(sessionID, extensionPoint))
     }
 
@@ -107,10 +107,10 @@ class ExtensionManager {
      * returned
      * @return An optional object either empty or wrapping the instance
      */
-    fun <T> getExtensionThatSatisfy(
-        extensionPoint: Class<T?>?,
-        condition: Predicate<T?>?
-    ): Optional<T?> {
+    private inline fun <reified T> getExtensionThatSatisfy(
+        extensionPoint: Class<T>,
+        condition: Predicate<T>
+    ): Optional<T> {
         return loadFirst(ExtensionLoadContext.satisfying(sessionID, extensionPoint, condition))
     }
 
@@ -124,10 +124,10 @@ class ExtensionManager {
      * condition will be returned
      * @return An optional object either empty or wrapping the instance
      */
-    fun <T> getExtensionThatSatisfyMetadata(
-        extensionPoint: Class<T?>?,
-        condition: Predicate<Extension?>?
-    ): Optional<T?> {
+    private inline fun <reified T> getExtensionThatSatisfyMetadata(
+        extensionPoint: Class<T>,
+        condition: Predicate<Extension>
+    ): Optional<T> {
         return loadFirst(ExtensionLoadContext.satisfyingData(sessionID, extensionPoint, condition))
     }
 
@@ -146,12 +146,12 @@ class ExtensionManager {
      * @param version The minimal version
      * @return An optional object either empty or wrapping the instance
      */
-    fun <T> getExtensionThatSatisfyMetadata(
-        extensionPoint: Class<T?>?,
+    private inline fun <reified T> getExtensionThatSatisfyMetadata(
+        extensionPoint: Class<T>,
         provider: String,
         name: String,
         version: String
-    ): Optional<T?> {
+    ): Optional<T> {
         return loadFirst(
             ExtensionLoadContext.satisfyingData(
                 sessionID,
@@ -168,7 +168,7 @@ class ExtensionManager {
      * @param extensionPoint The extension point type
      * @return A list with the extensions, empty if none was found
      */
-    fun <T> getExtensions(extensionPoint: Class<T?>?): Stream<T?>? {
+    fun <T> getExtensions(extensionPoint: Class<T>): Stream<T> {
         return loadAll(ExtensionLoadContext.all(sessionID, extensionPoint))
     }
 
@@ -180,7 +180,7 @@ class ExtensionManager {
      * @param condition Only extensions satisfying this condition will be returned
      * @return A list with the extensions, empty if none was found
      */
-    fun <T> getExtensionsThatSatisfy(extensionPoint: Class<T?>?, condition: Predicate<T?>?): Stream<T?>? {
+    fun <T> getExtensionsThatSatisfy(extensionPoint: Class<T>, condition: Predicate<T>): Stream<T> {
         return loadAll(ExtensionLoadContext.satisfying(sessionID, extensionPoint, condition))
     }
 
@@ -194,9 +194,9 @@ class ExtensionManager {
      * @return A list with the extensions, empty if none was found
      */
     fun <T> getExtensionsThatSatisfyMetadata(
-        extensionPoint: Class<T?>?,
-        condition: Predicate<Extension?>?
-    ): Stream<T?>? {
+        extensionPoint: Class<T>,
+        condition: Predicate<Extension>
+    ): Stream<T> {
         return loadAll(ExtensionLoadContext.satisfyingData(sessionID, extensionPoint, condition))
     }
 
@@ -249,28 +249,28 @@ class ExtensionManager {
         return Collections.unmodifiableList(classLoaders)
     }
 
-    private fun <T> loadAll(context: ExtensionLoadContext<T?>?): Stream<T?>? {
+    private fun <T> loadAll(context: ExtensionLoadContext<T>): Stream<T> {
         return obtainValidExtensions(context).stream()
-            .filter(context!!.condition())
+            .filter(context.condition())
             .sorted(sortByPriority())
     }
 
-    private fun <T> loadFirst(context: ExtensionLoadContext<T?>?): Optional<T?> {
+    private fun <T> loadFirst(context: ExtensionLoadContext<T>): Optional<T> {
         return obtainValidExtensions(context).stream()
-            .filter(context!!.condition())
+            .filter(context.condition())
             .min(sortByPriority())
     }
 
-    private fun <T> obtainValidExtensions(context: ExtensionLoadContext<T?>?): MutableList<T?> {
-        validExtensions.putIfAbsent(context!!.extensionPoint(), HashSet())
+    private fun <T> obtainValidExtensions(context: ExtensionLoadContext<T>): MutableList<T> {
+        validExtensions.putIfAbsent(context.extensionPoint(), HashSet())
         invalidExtensions.putIfAbsent(context.extensionPoint(), HashSet())
-        val collectedExtensions: MutableList<T?> = ArrayList()
-        collectValidExtensions<T?>(
+        val collectedExtensions: MutableList<T> = ArrayList()
+        collectValidExtensions(
             context.withInternalLoader(classLoaders, builtInExtensionLoader),
             collectedExtensions
         )
         for (extensionLoader in extensionLoaders) {
-            collectValidExtensions<T?>(
+            collectValidExtensions(
                 context.withExternalLoader(classLoaders, extensionLoader),
                 collectedExtensions
             )
@@ -280,8 +280,8 @@ class ExtensionManager {
     }
 
     private fun <T> collectValidExtensions(
-        context: ExtensionLoadContext<T?>?,
-        collectedExtensions: MutableList<T?>
+        context: ExtensionLoadContext<T>,
+        collectedExtensions: MutableList<T>
     ) {
         val extensionPoint = context!!.extensionPoint()
         LOGGER.debug("{} :: Searching...", context)
@@ -311,7 +311,7 @@ class ExtensionManager {
         }
     }
 
-    private fun <T> validateExtension(context: ExtensionLoadContext<T>?, extension: T): Boolean {
+    private fun <T> validateExtension(context: ExtensionLoadContext<T>, extension: T): Boolean {
         val extensionPoint = context!!.extensionPoint()
         val extensionPointData = context.extensionPointData()
         val extensionData = getExtensionMetadata(extension)
@@ -413,8 +413,8 @@ class ExtensionManager {
             return loaders
         }
 
-        private fun identifier(provider: String, name: String, version: String): Predicate<Extension?> {
-            return Predicate { extension: Extension? ->
+        private fun identifier(provider: String, name: String, version: String): Predicate<Extension> {
+            return Predicate { extension: Extension ->
                 extension!!.provider.equals(provider, ignoreCase = true) &&
                         extension.name.equals(name, ignoreCase = true) &&
                         ExtensionVersion.of(extension.version)!!.isCompatibleWith(ExtensionVersion.of(version))
